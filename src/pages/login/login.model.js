@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {Alert} from 'react-native';
 import IconModule from '../../../IconModule';
 import {getlogin, login} from '../../repositories/auth.repository';
+import {setToken} from 'LocalStorage';
 
 const useLoginViewModel = () => {
   const [email, setEmail] = useState('');
@@ -26,6 +27,7 @@ const useLoginViewModel = () => {
   };
   const setSubmit = async response => {
     // await IconModule.setIconOne(!Toggle);
+    await setToken(response);
     setToggle(!Toggle);
     console.log('->', response);
   };

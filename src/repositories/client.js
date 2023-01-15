@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getToken, clearAsyncStorate} from 'LocalStorage';
 
 const client = axios.create({
   baseURL: 'https://jsonplaceholder.typicode.com',
@@ -6,11 +7,11 @@ const client = axios.create({
 
 client.interceptors.request.use(
   async config => {
-    const token = '# Your token goes over here;';
+    const token = await getToken();
     if (token) {
-      config.headers.accessToken = token;
+      config.headers.accessToken = token.id;
     }
-    // console.log('config', JSON.stringify(config));
+
     return config;
   },
   function (error) {
@@ -24,7 +25,7 @@ client.interceptors.response.use(
     // console.log('response', res.data);
     return res;
   },
-  error => {
+  async error => {
     if (error.message === 'Network Error') {
       console.log('Network Error', JSON.stringify(error?.response?.status));
       if (error?.response?.status === 504) {
@@ -50,6 +51,7 @@ client.interceptors.response.use(
       }
       if (error.response.status === 401) {
         // logout logic
+        await clearAsyncStorate();
       }
       if (error.response.status === 403) {
         // redirect user to some home page since that action is not allowed
