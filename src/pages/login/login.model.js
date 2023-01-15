@@ -6,19 +6,18 @@ import {getlogin, login} from '../../repositories/auth.repository';
 const useLoginViewModel = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [isLoading, setIsLoading] = useState(false);
-const [Toggle, setToggle] = useState(false)
+  const [Toggle, setToggle] = useState(false);
+
   const onSubmit = async () => {
-    console.log({email, password});
+    // console.log({email, password});
     try {
       setIsLoading(true);
-      const response = await getlogin({id: 1});
-
+      const response = await getlogin({id: email});
       setSubmit(response);
       //TODO: navigate to home
     } catch (e) {
-      console.log(e);
+      console.log('error-> useLoginViewModel', e);
       Alert.alert('Oops!', 'Something went wrong');
     } finally {
       setIsLoading(false);
@@ -26,8 +25,8 @@ const [Toggle, setToggle] = useState(false)
     }
   };
   const setSubmit = async response => {
-    await IconModule.setIconOne(!Toggle)
-    setToggle(!Toggle)
+    // await IconModule.setIconOne(!Toggle);
+    setToggle(!Toggle);
     console.log('->', response);
   };
 

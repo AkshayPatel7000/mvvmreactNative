@@ -1,14 +1,14 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   Button,
   SafeAreaView,
-  StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
-import useLoginViewModel from './view.model';
-import {moderateScale, moderateVerticalScale, scale} from 'responsiveScreen';
+import {styles} from './login.style';
+import useLoginViewModel from './login.model';
 const LoginView = () => {
   const {email, password, setEmail, setPassword, isLoading, onSubmit} =
     useLoginViewModel();
@@ -28,18 +28,14 @@ const LoginView = () => {
           value={password}
           onChangeText={setPassword}
         />
-        <Button title="Login" disabled={isLoading} onPress={onSubmit} />
+        {!isLoading ? (
+          <Button title="Login" disabled={isLoading} onPress={onSubmit} />
+        ) : (
+          <ActivityIndicator />
+        )}
       </View>
     </SafeAreaView>
   );
 };
 
 export default LoginView;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: scale(50),
-  },
-});
