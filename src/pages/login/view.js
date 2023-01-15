@@ -8,12 +8,10 @@ import {
   View,
 } from 'react-native';
 import useLoginViewModel from './view.model';
-
+import {moderateScale, moderateVerticalScale, scale} from 'responsiveScreen';
 const LoginView = () => {
   const {email, password, setEmail, setPassword, isLoading, onSubmit} =
     useLoginViewModel();
-
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -42,6 +40,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: scale(50),
   },
 });

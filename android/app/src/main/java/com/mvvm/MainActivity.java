@@ -1,12 +1,15 @@
 package com.mvvm;
 
+import android.content.Intent;
+import android.content.IntentFilter;
+
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 
 public class MainActivity extends ReactActivity {
   public static boolean appInFront;
-
+  AirplaneModeChangeReceiver airplaneModeChangeReceiver = new AirplaneModeChangeReceiver();
 
   @Override
   protected void onResume() {
@@ -19,6 +22,17 @@ public class MainActivity extends ReactActivity {
     super.onPause();
     appInFront = true;
   }
+  @Override
+  protected void onStart() {
+    super.onStart();
+    IntentFilter filter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+    registerReceiver(airplaneModeChangeReceiver, filter);
+  }
+//  @Override
+//  protected void onStop() {
+//    super.onStop();
+//    unregisterReceiver(airplaneModeChangeReceiver);
+//  }
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.

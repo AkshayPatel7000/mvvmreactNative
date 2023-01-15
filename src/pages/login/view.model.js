@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Alert} from 'react-native';
+import IconModule from '../../../IconModule';
 import {getlogin, login} from '../../repositories/auth.repository';
 
 const useLoginViewModel = () => {
@@ -7,7 +8,7 @@ const useLoginViewModel = () => {
   const [password, setPassword] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
-
+const [Toggle, setToggle] = useState(false)
   const onSubmit = async () => {
     console.log({email, password});
     try {
@@ -24,7 +25,9 @@ const useLoginViewModel = () => {
       console.log('finally');
     }
   };
-  const setSubmit = response => {
+  const setSubmit = async response => {
+    await IconModule.setIconOne(!Toggle)
+    setToggle(!Toggle)
     console.log('->', response);
   };
 
