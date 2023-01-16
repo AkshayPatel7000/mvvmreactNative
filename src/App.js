@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginView from './pages/login/login.view';
+import LoginView from './screens/login/login.view';
 
 const App = () => {
   return <LoginView />;

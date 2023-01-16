@@ -5,7 +5,6 @@ export const login = async ({email, password}) => {
     email,
     password,
   });
-
   return data;
 };
 // https://jsonplaceholder.typicode.com/posts
